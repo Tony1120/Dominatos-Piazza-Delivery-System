@@ -82,8 +82,12 @@ public:
   void deliver(Driver * driver, Time time, float tip);
 
 private:
+  list * Driver drivers;
+  Queue * Order cooking;
+  Queue * Order delivery;
+  list * Order delivered;
 
-}
+};
 
       //The Driver class represents a pizza delivery driver. The driver can be
       //in one of several states: not logged in, logged in and at the restaurant,
@@ -96,91 +100,100 @@ public:
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Constructor. Creates a logged-in driver with the given name.
   */
   Driver(string name);
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is not logged in.
+  * Postcondition: Logs the driver in.
   */
   void login() throw(logic_error);
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is logged in and at the restaurant.
+  * Postcondition: Logs the driver out.
   */
   void logout() throw(logic_error);
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is logged in and at the restaurant.
+  * Postcondition: Driver is delivering. Departure time is recorded.
   */
   void depart(Time time, Order o) throw(logic_error);
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is delivering with a tip >= 0
+  * Postcondition: Driver is not delivering. Driver’s stats are updated.
   */
   void deliver(Time time, float tip) throw(logic_error);
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is driving but not delivering.
+  * Postcondition: Driver is at the restaurant. Driver’s stats are updated
   */
   void arrive(Time time) throw(logic_error);
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns the drivers name
   */
   string getName();
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: returns true if driver is logged in. Returns false otherwise
   */
   bool isLoggedIn();
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns the total number of completed deliveries.
   */
   int getTotalDeliveries();
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns the total minutes spent delivering (i.e., between
+  *                “depart” and “deliver” commands).
   */
   int getTotalMinDelivering();
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns the total minutes spent driving (i.e., between
+  *                “depart” and “arrive” commands).
   */
   int getTotalMinDriving();
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns the total tips received, in dollars
   */
   float getTotalTips();
 
   /*
-  * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Preconditions: Driver is delivering.
+  * Postcondition: Returns the order being delivered.
   */
-  Order getOrder() throw(logic_error);
+  Order * getOrder() throw(logic_error);
 
   /*
   * Preconditions: None
-  * Postcondition: Constructor. Empty vector of lists created with size set to tableSize
+  * Postcondition: Returns a string containing the driver’s name, state
+  *                (e.g., not logged in), and, if the driver is delivering an
+  *                order, the departure time and toString of the order being delivered.
   */
   string toString();
 
 private:
+  string driver_Name;
+  float total_tips;
+  int total_deliveries;
+  int tot_mins_spent_driving;
+  int tot_mins_spent_delivering;
 
-}
+};
 
 class Order{
 public:
@@ -210,12 +223,14 @@ public:
     //Post: Returns a string containing the order time and info.
     string toString();
 
-
-
 private:
+  bool is_out_for_delivery;
+  string order_info;
+  bool is_served;            //has it been finished cooking?
+  bool has_left_restaurant;
+  Time delivered_time;
+
 };
-
-
 
 
 class Time(){
@@ -235,5 +250,6 @@ public:
     string toString();
 
 private:
-
+  int hour;
+  int minutes;
 };
