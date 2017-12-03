@@ -187,12 +187,24 @@ public:
   string toString();
 
 private:
-  string driver_Name;
-  float total_tips;
-  int total_deliveries;
-  int tot_mins_spent_driving;
-  int tot_mins_spent_delivering;
+    // flags indicating the status of the driver
+    bool depart_flag;
+    bool deliver_flag:
+    bool arrive_flag;
+    
+    Order currentOrder; // current order of the driver
+    string driver_Name; // driver's name
+   
+    float total_tips;
+    int total_deliveries; // total deliveries the driver have
+    int tot_mins_spent_driving;
+    int tot_mins_spent_delivering;
+    
+    int depart_time;
+    int last_deliver time;
+    int arrive_time;
 
+    
 };
 
 class Order{
