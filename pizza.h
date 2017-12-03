@@ -123,19 +123,19 @@ public:
   void depart(Time time, Order o) throw(logic_error);
 
   /*
-  * Preconditions: Driver is delivering with a tip >= 0
+  * Preconditions: Driver is logged in and at the restaurant.
   * Postcondition: Driver is not delivering. Driver’s stats are updated.
   */
   void deliver(Time time, float tip) throw(logic_error);
 
   /*
-  * Preconditions: Driver is driving but not delivering.
+   * Preconditions: Driver is delivering, tip>=0;
   * Postcondition: Driver is at the restaurant. Driver’s stats are updated
   */
   void arrive(Time time) throw(logic_error);
 
   /*
-  * Preconditions: None
+  * Preconditions: Driver is driving but not delivering.
   * Postcondition: Returns the drivers name
   */
   string getName();
