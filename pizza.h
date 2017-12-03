@@ -11,7 +11,7 @@
 #include <list>
 #include <string>
 
-using namepace std;
+using namespace std;
 
 #ifndef PIZZA_H
 #define PIZZA_H
