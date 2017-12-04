@@ -44,3 +44,9 @@ string Time::toString(){
   the_time = str_hr + ":" + str_min;
   return the_time;
 }
+
+//Pre: None
+//Post: Returns the current time in minutes. (To be used in Drivers class)
+int Time::get_min_time(){
+  return curr_time_min;
+}
