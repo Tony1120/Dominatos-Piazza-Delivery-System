@@ -35,6 +35,10 @@ public:
     //Pre: Non
     //Post: Returns a string containing the hour and minute (e.g., “13:01”).
     string toString();
+	
+    //Pre: Non
+    //Post: Returns the current time in minutes. (To be used in drivers class)
+    int get_min_time();
 
 private:
   int hour;
