@@ -1,52 +1,203 @@
-#include "pizza.h"
 
+
+#include "pizza.h"
 using namespace std;
 
-//Pre: None
-//Post: Creates a time with default values for data members.
-Time::Time() {
-  hour = 0;
-  minutes = 0;
-  curr_time_min = (hour * 60) + minutes;
+/*
+ * Preconditions: None
+ * Postcondition: Constructor. Creates a logged-in driver with the given name.
+ */
+Driver::Driver(string name){
+    driver_Name=name;
+    
+    depart_flag=false;
+    deliver_flag=false;
+    arrive_flag=false;
+    login_flag = false;
+    
+    total_tips=0;
+    total_deliveries=0;
+    tot_mins_spent_driving=0;
+    tot_mins_spent_delivering=0;
+    
 }
 
-//Pre: 0 <= hour <= 23 and 0 <= min <= 59.
-//Post: Creates a time with the given hour and minute.
-Time::Time(int hour, int min) throw (logic_error) {                   // the throw logic error isnt working, This might be a compiler problem
-  if(hour<=0 && hour>=23){
-    throw logic_error("Hour has to be between 0 and 23");
-  }
-  if(min<=0 && min>=59){
-    throw logic_error("Minute has to be between 0 and 59");
-  }
-  this -> hour = hour;
-  this -> minutes = min;
-  curr_time_min = (hour * 60) + minutes;
+/*
+ * Preconditions: Driver is not logged in.
+ * Postcondition: Logs the driver in.
+ */
+void Driver:: login() throw(logic_error){
+    if (login_flag==true) {
+        throw logic_error("Driver has already logged in");
+    }
+    login_flag =true;
+    arrive_flag= true;
 }
 
-//Pre: None
-//Post: Returns the difference in minutes between t1 and t2. Assumes t2 is between 00:00 and 23:59 hours after t1.
-int Time::elapsedMin(Time t1, Time t2){
-  int min_elasped;
-  min_elasped = (t2.hour * 60 + t2.minutes)-(t1.hour * 60 + t1.minutes);
-  if(min_elasped < 0) {
-    min_elasped = -1 * min_elasped;
-  }
-  return min_elasped;
+/*
+ * Preconditions: Driver is logged in and at the restaurant.
+ * Postcondition: Logs the driver out.
+ */
+void Driver:: logout() throw(logic_error){
+    if (login_flag==false) {
+        throw logic_error("Driver has already logged out");
+    }
+    
+    login_flag = false;
+    arrive_flag= false;
 }
 
-//Pre: Non
-//Post: Returns a string containing the hour and minute (e.g., “13:01”).
-string Time::toString(){
-  string the_time;
-  string str_hr = to_string(hour);
-  string str_min = to_string(minutes);
-  the_time = str_hr + ":" + str_min;
-  return the_time;
+/*
+ * Preconditions: Driver is logged in and at the restaurant.
+ * Postcondition: Driver is delivering. Departure time is recorded.
+ */
+void Driver :: depart(Time time, Order o) throw(logic_error){
+    if (login_flag==false||arrive_flag==false) {
+        throw logic_error("the driver is not logged in or not at the restaurant");
+    }
+    currentOrder = o;
+    depart_flag= true;
+    
+    depart_time = time.get_min_time();
+    
+    departimeToString= time.toString();
 }
 
-//Pre: None
-//Post: Returns the current time in minutes. (To be used in Drivers class)
-int Time::get_min_time(){
-  return curr_time_min;
+/*
+ * Preconditions: Driver is delivering with a tip >= 0
+ * Postcondition: Driver is not delivering. Driver’s stats are updated.
+ */
+void Driver::deliver(Time time, float tip) throw(logic_error){
+    
+    if (deliver_flag==false&&arrive_flag==false&& tip>=0) {
+        Order *temp = &currentOrder;
+        delete temp; // not sure if it works
+        
+        
+        deliver_flag=true;
+        total_tips = total_tips+tip;
+        last_deliver_time = time.get_min_time();
+        
+        tot_mins_spent_delivering= last_deliver_time - depart_time;
+        
+        total_deliveries = total_deliveries+1;
+    }
+    else throw logic_error("driver is not delivering or the tip is less than 0");
+
 }
+
+/*
+ * Preconditions: Driver is driving but not delivering.
+ * Postcondition: Driver is at the restaurant. Driver’s stats are updated
+ */
+void Driver::arrive(Time time) throw(logic_error){
+    if (arrive_flag==false&&deliver_flag==true) {
+        
+        arrive_flag= true;
+        deliver_flag=false;
+        depart_flag = false;
+        
+        
+        arrive_time=time.get_min_time();
+        tot_mins_spent_driving= arrive_time - depart_time;
+    }
+    else throw logic_error("driver is at the restaurant or is delivering");
+    
+    
+}
+
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns the drivers name
+ */
+string Driver::getName(){
+    return driver_Name;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: returns true if driver is logged in. Returns false otherwise
+ */
+bool Driver::isLoggedIn(){
+    if (login_flag=true) {
+        return true;
+    }
+    return false;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns the total number of completed deliveries.
+ */
+int Driver::getTotalDeliveries(){
+    return total_deliveries;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns the total minutes spent delivering (i.e., between
+ *                “depart” and “deliver” commands).
+ */
+int Driver::getTotalMinDelivering(){
+    return tot_mins_spent_delivering;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns the total minutes spent driving (i.e., between
+ *                “depart” and “arrive” commands).
+ */
+int Driver::getTotalMinDriving(){
+    return tot_mins_spent_driving;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns the total tips received, in dollars
+ */
+float Driver:: getTotalTips(){
+    return total_tips;
+}
+
+/*
+ * Preconditions: Driver is delivering.
+ * Postcondition: Returns the order being delivered.
+ */
+Order * Driver::getOrder() throw(logic_error){
+    if (arrive_flag!=false&&deliver_flag!=false){
+        throw logic_error("no order is carried by the driver");
+    }
+    
+    Order *orderptr = &currentOrder;
+    return orderptr;
+}
+
+/*
+ * Preconditions: None
+ * Postcondition: Returns a string containing the driver’s name, state
+ *                (e.g., not logged in), and, if the driver is delivering an
+ *                order, the departure time and toString of the order being delivered.
+ */
+string Driver::toString(){
+    string loginstatus;
+    
+    
+    if (login_flag==true) {
+        loginstatus=" is logged in ";
+        if (arrive_flag==false) {
+            return driver_Name+loginstatus+departimeToString+currentOrder.toString(); \
+        }
+        return driver_Name+loginstatus.append("the driver is current at the restaurant");
+        
+    }
+    
+    loginstatus=" not logged in";
+    return driver_Name.append(loginstatus);
+}
+
+
+
+
+
+

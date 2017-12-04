@@ -35,7 +35,7 @@ public:
     //Pre: Non
     //Post: Returns a string containing the hour and minute (e.g., “13:01”).
     string toString();
-	
+    
     //Pre: Non
     //Post: Returns the current time in minutes. (To be used in drivers class)
     int get_min_time();
@@ -56,7 +56,6 @@ public:
     
     //Post: Creates an order with the given order time and information.
     Order(Time time, string info);
-    
     
     
     //Pre: Order is at the restaurant.
@@ -200,6 +199,10 @@ private:
     int depart_time;
     int last_deliver_time;
     int arrive_time;
+    
+    string departimeToString;
+    
+    
     
     
 };
