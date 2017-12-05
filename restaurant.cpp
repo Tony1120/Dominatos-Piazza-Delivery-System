@@ -1,14 +1,15 @@
 #include "restaurant.h"
 #include "time.h"
 #include "driver.h"
+#include "order.h"
 
 using namespace std;
 
 Restaurant::Restaurant(){
   list<string> drivers;           // empty list of drivers
-  list<string> delivered;         // emptry list of delivered pizza     // should it be a string or not?
-  queue<string> cooking;          // empty list of food being cooked
-  queue<string> delivery;                                               //I dont know what this is . maybe orders waiting to be delivered (departure)?
+  list<string> delivered;         // emptry list of delivered pizza   
+  queue<order> cooking;          // empty list of food being cooked
+  queue<order> served;        //orders waiting to be delivered (departure)?
                             // what else do we need in the constructor??
 }
 
