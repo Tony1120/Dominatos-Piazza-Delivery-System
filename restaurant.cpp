@@ -6,35 +6,57 @@
 using namespace std;
 
 Restaurant::Restaurant(){
-  list<string> drivers;           // empty list of drivers
-  list<string> delivered;         // emptry list of delivered pizza   
-  queue<order> cooking;          // empty list of food being cooked
+  list<driver> drivers;           // empty list of drivers
+  list<order> delivered;         // emptry list of delivered pizza   
+  queue<order> toCook;          // empty list of food waiting to be cooked
   queue<order> served;        //orders waiting to be delivered (departure)?
                             // what else do we need in the constructor??
 }
 
 void Restaurant::status(){
   cout << "Orders waiting to cook: " << endl;
-  cout <<                     // info for the orders
+  for(auto &cookItr : toCook){
+    cout << '\t' << cookItr.toString() << endl;
+  }
 
   cout << "Orders waiting to depart: " << endl;
-  cout <<                   // info
+  for(auto &serveItr : served){
+    cout << '\t' << serveItr.toString() << endl;
+  }
 
   cout << "Drivers: " << endl;
-  cout <<                   // info
+  for(auto &driverItr : drivers){
+    cout << '\t' << driverItr.toString() << endl;
+  }
 }
 
 void Restaurant::summary(){
-  cout << "Number of orders completed: " << endl;
+  cout << "Number of orders completed: ";
+  //Number delivered
+  int completed = 0;
+  int totalTime = 0;
+  for(auto &orderItr : delivered){
+    completed++; 
+    totalTime += orderItr.getMinToDelivery();
+  }
+  cout << completed << endl;
 
-  cout << "Average time per order: " << endl;
+  cout << "Average time per order: ";
+  cout << (float)totalTime/completed << endl;
 
     //use a for loop that goes through the list of drivers
-  cout << "Driver" << endl;
-  cout << " Number of deliveries completed: " << endl;
-  cout << " Average time per delivery: " << endl;
-  cout << " Total driving time: " << endl;
-  cout << " Total tips: " << endl;
+  for(auto &driver : drivers){
+    cout << "Driver " << driver.getName() << endl;
+    cout << "\tNumber of deliveries completed: " << driver.getTotalDeliveries() << endl;
+    cout << "\tAverage time per delivery: " << (float)(driver.getTotalMinDelivering()/driver.getTotalDeliveries()) << endl;
+    cout << "\tTotal driving time: " << driver.getTotalMinDriving() << endl;
+    cout << "\tTotal tips: " << driver.getTotalTips() << endl;
+  }
+  
+  
+  
+  
+  
 }
 
 Driver * Restaurant::getDriver(string name){
@@ -71,5 +93,6 @@ Order * Restaurant::departNextOrder() throw (logic_error){
 }
 
 void Restaurant::deliver(Driver * driver, Time time, float tip){
-
+  driver.deliver(time, tip);
+  delivered.push_back(driver.getOrder());
 }
