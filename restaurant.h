@@ -74,9 +74,9 @@ public:
   void deliver(Driver * driver, Time time, float tip);
 
 private:
-  list * Driver drivers;
-  Queue * Order cooking;
-  Queue * Order delivery;
-  list * Order delivered;
+  list <Driver> drivers;
+  Queue <Order> cooking;
+  Queue <Order> served;
+  list <Order> delivered;
 
 };
