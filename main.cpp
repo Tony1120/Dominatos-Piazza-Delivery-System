@@ -29,7 +29,12 @@ int main(int argc, const char * argv[]) {
     PizzaHub.summary();
     
     string input;
-    while(cin)
+    string commandInfo;
+    string commandType;
+    while(cin >> input && input !="q"){
+        //Split input string
+        
+    }
     
     return 0;
 }
