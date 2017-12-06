@@ -13,10 +13,10 @@ Time::Time() {
 //Pre: 0 <= hour <= 23 and 0 <= min <= 59.
 //Post: Creates a time with the given hour and minute.
 Time::Time(int hour, int min) throw (logic_error) {                   // the throw logic error isnt working, This might be a compiler problem
-  if(hour<=0 && hour>=23){
+  if(hour<=0 || hour>=23){
     throw logic_error("Hour has to be between 0 and 23");
   }
-  if(min<=0 && min>=59){
+  if(min<=0 || min>=59){
     throw logic_error("Minute has to be between 0 and 59");
   }
   this -> hour = hour;

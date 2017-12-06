@@ -16,9 +16,6 @@ Restaurant::Restaurant(){
 void Restaurant::status(){
   cout << "Orders waiting to cook: " << endl;
     
-
-
-    
   for( auto &cookItr : toCook){
     cout << '\t' << cookItr.toString() << endl;
   }
