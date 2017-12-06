@@ -11,12 +11,12 @@ Order::Order(){
 //Parameterized Constructor
 Order::Order(Time placed, string info){
   //Order info
-  string order_info = info;
+  order_info = info;
   //Order is new
   bool is_out_for_delivery = false;
     bool is_delivered= false;
   bool is_at_the_restaurant = true;
-  Time time_placed = placed;
+  time_placed = placed;
 //  Time time_delivered = NULL;
 //  //Can time be null?
 }
