@@ -55,12 +55,13 @@ void Driver :: depart(Time time, Order o) throw(logic_error){
     if (login_flag==false||arrive_flag==false) {
         throw logic_error("the driver is not logged in or not at the restaurant");
     }
-    currentOrder = o;
+    currentOrder = o; // past parameter o to currentOrder
     depart_flag= true;
     
-    depart_time = time.get_min_time();
+    depart_time = time;
     
-    departimeToString= time.toString();
+    currentOrder.depart(); // change the status of the order to depart
+    
 }
 
 /*
@@ -73,12 +74,13 @@ void Driver::deliver(Time time, float tip) throw(logic_error){
         Order *temp = &currentOrder;
         delete temp; // not sure if it works
         
+        currentOrder.deliver(time);// change the status of the order to deliver
         
         deliver_flag=true;
         total_tips = total_tips+tip;
-        last_deliver_time = time.get_min_time();
+        deliver_time = time;
         
-        tot_mins_spent_delivering= last_deliver_time - depart_time;
+        tot_mins_spent_delivering= Time::elapsedMin(depart_time, deliver_time);
         
         total_deliveries = total_deliveries+1;
     }
@@ -98,8 +100,9 @@ void Driver::arrive(Time time) throw(logic_error){
         depart_flag = false;
         
         
-        arrive_time=time.get_min_time();
-        tot_mins_spent_driving= arrive_time - depart_time;
+        arrive_time=time;
+        
+        tot_mins_spent_driving=  Time::elapsedMin(depart_time, arrive_time);
     }
     else throw logic_error("driver is at the restaurant or is delivering");
     
@@ -182,17 +185,17 @@ Order * Driver::getOrder() throw(logic_error){
 string Driver::toString(){
     string loginstatus;
     
-    
-    if (login_flag==true) {
+    if (login_flag==true) { // driver is logged in
         loginstatus=" is logged in ";
-        if (arrive_flag==false) {
-            return driver_Name+loginstatus+departimeToString+currentOrder.toString(); \
+        if (arrive_flag==false) { // driver is out delivering order
+            return driver_Name+loginstatus+depart_time.toString()+currentOrder.toString(); \
         }
-        return driver_Name+loginstatus.append("the driver is current at the restaurant");
-        
+        else { // driver is at the restaurant
+            return driver_Name+loginstatus.append("the driver is current at the restaurant");
+        }
     }
-    
-    loginstatus=" not logged in";
+
+    loginstatus=" not logged in"; // driver
     return driver_Name.append(loginstatus);
 }
 

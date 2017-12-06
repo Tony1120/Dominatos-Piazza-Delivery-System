@@ -1,12 +1,19 @@
+
+
+#ifndef RESTAURANT_H
+#define RESTAURANT_H
+
 #include <cstdlib>
 #include <iostream>
 #include <list>
 #include <string>
+#include <deque>
+#include "driver.h"
 
-using namepace std;
 
-#ifndef RESTAURANT_H
-#define RESTAURANT_H
+
+
+using namespace std;
 
       // The Restaurant class keeps track of all drivers and orders in the
       // system, including logged-out drivers and completed orders.
@@ -45,13 +52,13 @@ public:
   * Preconditions: None
   * Postcondition: Adds the given driver to the system
   */
-  void addDriver(Driver* driver);
+  void addDriver( Driver &driver);
 
   /*
   * Preconditions: None
   * Postcondition: Adds the given order to the system, enqueuing it for cooking.
   */
-  void addOrder(Order* order);
+  void addOrder( Order &order);
 
   /*
   * Preconditions: Cooking queue isnt empty
@@ -71,12 +78,14 @@ public:
   * Postcondition: The order carried by the driver is delivered at the given
   *                time. The driver receives the given tip.
   */
-  void deliver(Driver * driver, Time time, float tip);
+  void deliver(Driver & driver, Time time, float tip);
 
 private:
-  list <driver> drivers;
-  Queue <order> toCook;
-  Queue <order> served;
-  list <order> delivered;
+  list <Driver> drivers;
+  deque <Order> toCook;
+  deque <Order> served;
+  list <Order> delivered;
 
 };
+
+#endif

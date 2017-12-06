@@ -1,3 +1,17 @@
+
+
+#ifndef ORDER_H
+#define ORDER_H
+
+#include <cstdlib>
+#include <iostream>
+#include <list>
+#include <string>
+#include "time.h"
+
+
+
+
 class Order{
 public:
 
@@ -29,9 +43,12 @@ public:
 private:
     bool is_out_for_delivery;
     string order_info;
-    bool is_served;            //has it been finished cooking?
+    bool is_at_the_restaurant;
+    bool is_delivered;//has it been finished cooking?
     //bool has_left_restaurant; redundant because of is_out_for_delivery
     Time time_placed;
     Time time_delivered;
 
 };
+
+#endif

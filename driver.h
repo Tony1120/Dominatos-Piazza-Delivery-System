@@ -14,6 +14,8 @@
 #include <list>
 #include <string>
 #include <queue>
+#include "order.h"
+//#include "time.h"
 
 using namespace std;
 
@@ -130,11 +132,10 @@ private:
     int tot_mins_spent_driving;
     int tot_mins_spent_delivering;
     
-    int depart_time;
-    int last_deliver_time;
-    int arrive_time;
-    
-    string departimeToString;
+    Time depart_time;
+    Time deliver_time;
+    Time arrive_time;
+
 };
 
 #endif /* driver_h */

@@ -1,13 +1,14 @@
+
+
+#ifndef TIME_H
+#define TIME_H
+
 #include <cstdlib>
 #include <iostream>
 #include <list>
 #include <string>
 
 using namespace std;
-
-#ifndef TIME_H
-#define TIME_H
-
 class Time{
 public:
     //Pre: None
