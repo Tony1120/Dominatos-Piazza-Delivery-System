@@ -96,9 +96,9 @@ Driver * Restaurant::getDriver(string name){
 }
 
     
-void Restaurant:: addDriver( Driver &driver){
+void Restaurant:: addDriver(string name){
 //    drivers.push_back(driver);
-    drivers.push_back(driver);
+    drivers.push_back(Driver(name));
 
 }
     

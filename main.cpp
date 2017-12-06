@@ -14,15 +14,11 @@ int main(int argc, const char * argv[]) {
     cout << "Hello World" << endl;
     
     Restaurant PizzaHub;
-    Driver Nick("Nick");
-//    Driver &NickRef = Nick;
-    Driver Jemal("Jemal");
-    Driver Tony("Tony");
 
 //    Time(12,00)
 //    Order(,)
     
-    PizzaHub.addDriver(Nick);
+    PizzaHub.addDriver("Nick");
     
 //    cout<<" status"<<endl;
 //    PizzaHub.status();
@@ -31,19 +27,18 @@ int main(int argc, const char * argv[]) {
     
     
     
-    PizzaHub.addDriver(Tony);
-    PizzaHub.addDriver(Jemal);
+    PizzaHub.addDriver("Tony");
+    PizzaHub.addDriver("Jemal");
     
-    Nick.login();
-    string test=Nick.toString();
+    PizzaHub.getDriver("Ton")->login();
+    
+    Order newOrder(Time(11,50), "2 Cheese to Taylor Hall");
+    PizzaHub.addOrder(newOrder);
+
     cout<<" status"<<endl;
     PizzaHub.status();
     cout<<" summary"<<endl;
     PizzaHub.summary();
-    
-
-    
-    
     
     return 0;
 }

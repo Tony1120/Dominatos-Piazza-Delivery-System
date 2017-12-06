@@ -52,7 +52,7 @@ public:
   * Preconditions: None
   * Postcondition: Adds the given driver to the system
   */
-  void addDriver( Driver &driver);
+  void addDriver(string name);
 
   /*
   * Preconditions: None
