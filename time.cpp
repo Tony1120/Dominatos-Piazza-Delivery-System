@@ -24,6 +24,14 @@ Time::Time(int hour, int min) throw (logic_error) {                   // the thr
   curr_time_min = (hour * 60) + minutes;
 }
 
+//Assignment operator
+//Pre: None
+//Assigns other to a Time object
+void Time::operator = ( const Time &other){
+    hour = other.hour;
+    minutes = other.minutes;
+}
+
 //Pre: None
 //Post: Returns the difference in minutes between t1 and t2. Assumes t2 is between 00:00 and 23:59 hours after t1.
 int Time::elapsedMin(Time t1, Time t2){

@@ -1,5 +1,3 @@
-
-
 #ifndef TIME_H
 #define TIME_H
 
@@ -18,6 +16,11 @@ public:
     //Pre: 0 <= hour <= 23 and 0 <= min <= 59.
     //Post: Creates a time with the given hour and minute.
     Time(int hour, int min) throw (logic_error);
+
+    //Assignment operator
+    //Pre: None
+    //Assigns other to a Time object
+    void operator = ( const Time &other);
 
     //Pre: None
     //Post: Returns the difference in minutes between t1 and t2. Assumes t2 is between 00:00 and 23:59 hours after t1.
