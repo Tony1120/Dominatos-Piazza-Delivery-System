@@ -27,7 +27,7 @@ Restaurant::Restaurant(){
 /*
 * Preconditions: None
 * Postcondition: Prints status of orders and logged-in drivers, as specified
-*                by the ìstatusî command description.
+*                by the ‚Äústatus‚Äù command description.
 */
 void Restaurant::status(){
 	//for orders waiting to cook
@@ -51,7 +51,7 @@ void Restaurant::status(){
 /*
 * Preconditions: None
 * Postcondition: Prints summary statistics on orders and drivers, as specified
-*                by the ìsummaryî command description.
+*                by the ‚Äúsummary‚Äù command description.
 */
 void Restaurant::summary(){
 	//for number of orders completed
@@ -105,15 +105,15 @@ void Restaurant::summary(){
 * Preconditions: Drive name is passed in as a string
 * Postcondition: If a driver with the given name exists within the system
 *                (logged in or not), returns a pointer to that driver.
-*                Otherwise, returns a null pointer.
+*                Otherwise, throws a logic error.
 */
-Driver * Restaurant::getDriver(string name){
+Driver * Restaurant::getDriver(string name) throw (logic_error){
   for(list<Driver>::iterator it = drivers.begin(); it != drivers.end(); ++it ){
     if(it->getName() == name){
       return &*it;
     }
   }
-  return nullptr;
+  throw logic_error("Driver cannot be found. ");
 }
 
 /*
