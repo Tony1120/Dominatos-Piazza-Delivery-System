@@ -33,6 +33,8 @@ int main() {
     print_help();
 
     cout << "Command: ";
+	
+	// ** Spell-check feature uses "levenshtein.h" **
     while (cin>>cmd&&cmd!="quit") {
 		// Spellcheck feature checks the command 
         if(spellcheck){
@@ -170,6 +172,7 @@ int main() {
     return 0;
 }//end main
 
+// Help is displayed at first and if the user enters a wrong command, or when the user types help
 void print_help(){
     cout << endl << "Commands:" << endl;
     cout << "  help                       : Help (displays this message)" << endl;
