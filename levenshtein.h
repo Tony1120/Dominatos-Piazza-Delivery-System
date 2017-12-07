@@ -1,10 +1,13 @@
 //
-//  levenshtein.hpp
+//  levenshtein.h
 //  autocorrect
 //
-//  Created by Nicholas Hunter on 12/6/17.
-//  Copyright © 2017 College of Wooster. All rights reserved.
-//
+
+//****************************************************************//
+// This is an autocorrect and distance algorith that is taken from 
+// https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
+// This algorithm tries to guess the correct command if the user inputs an incorrect command. 
+// This is done by measuring the similarity between two strings (the user input command and the appropraite commands)
 
 #ifndef levenshtein_hpp
 #define levenshtein_hpp
@@ -22,3 +25,4 @@ string guessCommand(string word);
 bool isValidCommand(string word);
 
 #endif /* levenshtein_hpp */
+// endcode
