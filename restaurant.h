@@ -50,9 +50,9 @@ public:
   * Preconditions: Drive name is passed in as a string
   * Postcondition: If a driver with the given name exists within the system
   *                (logged in or not), returns a pointer to that driver.
-  *                Otherwise, returns a null pointer.
+  *                Otherwise, throws a logic error.
   */
-  Driver * getDriver(string name);
+  Driver * getDriver(string name) throw (logic_error);
 
   /*
   * Preconditions: None
