@@ -1,5 +1,13 @@
-//Jemal, Nick, Tony
-//PizzaHub
+//--------------------------------------------------------------------
+//   Jemal, Nick, Tony
+//   PizzaHub
+//
+//  Final Project                                           main.cpp
+//
+//  Test program for the Pizza Tracking System
+//
+//--------------------------------------------------------------------
+
 
 #include <iostream>
 #include "time.h"
@@ -16,39 +24,42 @@ const bool spellcheck = true;
 void test_Restaurant(Restaurant &restaurant);
 void print_help();
 
-int main(int argc, const char * argv[]) {
+int main() {
     Restaurant PizzaHub;
     float tip;
-    string cmd; //Input command
+    string cmd;				//Input command
     string driver_name;
     string order_info;
     print_help();
-    
+
     cout << "Command: ";
     while (cin>>cmd&&cmd!="quit") {
+		// Spellcheck feature checks the command 
         if(spellcheck){
             //Check the command is valid
             if(!isValidCommand(cmd))
                 //If not guess it
                 cmd = guessCommand(cmd);
         }
-            
+
         //If cmd is blank print an error
         if(cmd == "")
             cout << "Please enter a valid command, or type 'help' for help" << endl;
-        
+
         //Login
         if ( cmd == "login"  ){
             cin >> driver_name;
+			//Driver is added
             PizzaHub.addDriver(driver_name);
-            //I personally think drivers should be automatically logged in so we don't have to do this -Nick
+			// Driver is logged in
             PizzaHub.getDriver(driver_name)->login();
         }
-        
+
         //Logout
         else if (cmd == "logout"){
             cin >> driver_name;
             Driver * temp = PizzaHub.getDriver(driver_name);
+			// Check if the driver exists before logout
             try{
                 if(temp != nullptr){
                     temp->logout();
@@ -59,9 +70,8 @@ int main(int argc, const char * argv[]) {
                 cout << e.what() << endl;
             }
         }
-        
+
         //Serve the next order
-        //Why do we need the time for this cmd? - Nick
         else if (cmd == "serve"){
             int hour;
             int min;
@@ -73,9 +83,9 @@ int main(int argc, const char * argv[]) {
             }catch(logic_error& e){
                 cout << e.what() << endl;
             }
-            
+
         }
-        
+
         //Add an order to the system
         else if (cmd == "order"){
             int hour;
@@ -83,30 +93,33 @@ int main(int argc, const char * argv[]) {
             cin>> hour;
             cin.ignore(1);
             cin >> min;
-            cin.ignore(1); //ignore the space after minutes
+            cin.ignore(1); //ignore the separator
+			//Gets order info from cmd 
             getline(cin, order_info);
+			//Makes a new order
             Order newOrder = Order(Time(hour, min), order_info);
+			//Adds order to deque
             PizzaHub.addOrder(newOrder);
         }
-        
+
         //Driver depart
         else if (cmd == "depart"){
             int hour;
             int min;
             cin>> hour;
-            cin.ignore(1);
+            cin.ignore(1); //ignore the separator
             cin >> min;
             cin >> driver_name;
             Order to_depart = PizzaHub.departNextOrder();
             PizzaHub.getDriver(driver_name)->depart(Time(hour, min), to_depart);
         }
-        
+
         //Driver arrive
         else if (cmd == "arrive"){
             int hour;
             int min;
             cin>> hour;
-            cin.ignore(1);
+            cin.ignore(1); //ignore the separator
             cin >> min;
             cin >> driver_name;
             try{
@@ -115,12 +128,13 @@ int main(int argc, const char * argv[]) {
                 cout << e.what() << endl;
             }
         }
-        
+
+		//Deliver an order
         else if ( cmd == "deliver" ){
             int hour;
             int min;
             cin>> hour;
-            cin.ignore(1);
+            cin.ignore(1); //ignore the separator
             cin >> min;
             cin >> driver_name;
             cin >> tip;
@@ -130,29 +144,29 @@ int main(int argc, const char * argv[]) {
                 cout << e.what() << endl;
             }
         }
-        
+
         //Get restaurant status
         else if ( cmd == "status" ){
             PizzaHub.status();
         }
-        
+
         //Get restaurant summary
         else if ( cmd == "summary" ){
             PizzaHub.summary();
         }
-        
-        //Got help?
+
+        //Get help
         else if ( cmd == "help"  ){
             print_help();
         }
+		// if command doesnt exist
         else{
             cout << "Command not found" << endl;
             print_help();
         }
         cout << "Command: ";
-        
+
     }//end while
-    
     return 0;
 }//end main
 
