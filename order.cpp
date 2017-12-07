@@ -1,14 +1,26 @@
-
+//--------------------------------------------------------------------
+//   Jemal, Nick, Tony
+//   PizzaHub
+//
+//  Final Project                                           order.cpp
+//
+//  Implimentation for the time class
+//
+//--------------------------------------------------------------------
 #include "order.h"
 
 
 //Defaut Constructor
+//Precondition: None
+//Postcondition: creates an order with default values for data members
 Order::Order(){
-  //This is a pointless constructor
+  //Nothing needs to be done here
 }
 
 
 //Parameterized Constructor
+//Precondition: None
+//Postcondition: creates an order with the given order time and info
 Order::Order(Time placed, string info){
     //Order info
     order_info = info;
@@ -20,7 +32,8 @@ Order::Order(Time placed, string info){
     time_placed = placed;
 }
 
-//Depart
+//Precondition: Order is at restaurant
+//Postcondition: Order is out for delivery
 void Order::depart() throw (logic_error){
     if(!is_at_the_restaurant){
         throw logic_error("Order is not at the restaurant");
@@ -29,7 +42,8 @@ void Order::depart() throw (logic_error){
     is_at_the_restaurant = false;
 }
 
-//Deliver
+//Precondition: Order is out for delivery
+//Postcondition: Order is delivered. Time to delivery is recorded
 void Order::deliver(Time time)throw (logic_error){
     if(!is_out_for_delivery){
         throw logic_error("Order is not out for delivery");
@@ -39,7 +53,8 @@ void Order::deliver(Time time)throw (logic_error){
     is_delivered = true;
 }
 
-//
+//Precondition: Order is delivered
+//Postcondition: Returns the minutes until the order is delivered (between 'order' and 'deliver' command)
 int Order::getMinToDelivery() throw (logic_error){
   if(is_delivered==false)
     throw logic_error("Order has not been delivered");
@@ -47,7 +62,8 @@ int Order::getMinToDelivery() throw (logic_error){
 }
 
 
-//Order status
+//Precondition: None
+//Postcondition: Returns a string containing the order time and info
 string Order::toString(){
     string status;
     status = time_placed.toString()+" "+ order_info;
