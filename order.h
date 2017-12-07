@@ -17,6 +17,9 @@
 #include <string>
 #include "time.h"
 
+	//The order class represents an order of food items placed by the customer. 
+	// The order keeps track of time it was placed, info needed to cook and deliver the food.
+	//It also keeps track of the time taken to deliver the food
 class Order{
 public:
 
