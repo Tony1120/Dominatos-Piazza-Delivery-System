@@ -2,8 +2,6 @@
 //  levenshtein.cpp
 //  autocorrect
 //
-//  Created by Nicholas Hunter on 12/6/17.
-//  Copyright © 2017 College of Wooster. All rights reserved.
 //
 
 #include "levenshtein.h"
