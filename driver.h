@@ -1,10 +1,12 @@
+//--------------------------------------------------------------------
+//   Jemal, Nick, Tony
+//   PizzaHub
 //
-//  driver.h
-//  pizza
+//  Final Project                                           driver.h
 //
-//  Created by Tony Liang on 12/3/17.
-//  Copyright © 2017 Tony Liang. All rights reserved.
+//  Declaration for the driver class
 //
+//--------------------------------------------------------------------
 
 #ifndef driver_h
 #define driver_h
@@ -121,7 +123,6 @@ private:
     // flags indicating the status of the driver
     bool at_restaurant;
     
-    //I'm confused about when these all change - Nick
     bool depart_flag;
     bool deliver_flag;
     bool arrive_flag;

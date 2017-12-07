@@ -1,4 +1,12 @@
-
+//--------------------------------------------------------------------
+//   Jemal, Nick, Tony
+//   PizzaHub
+//
+//  Final Project                                           driver.cpp
+//
+//  Implimentation for the driver class
+//
+//--------------------------------------------------------------------
 
 #include "driver.h"
 using namespace std;
@@ -54,7 +62,7 @@ void Driver:: logout() throw(logic_error){
  */
 void Driver::depart(Time time, Order o) throw(logic_error){
     if (login_flag==false||arrive_flag==false) {
-        throw logic_error("the driver is not logged in or not at the restaurant");
+        throw logic_error("Driver is not logged in or not at the restaurant");
     }
     currentOrder = o; // past parameter o to currentOrder
     depart_flag = true;
@@ -196,8 +204,9 @@ string Driver::toString(){
             return driver_Name+loginstatus.append("and currently at the restaurant");
         }
     }
-
-    loginstatus=" is not logged in"; // driver
+	if(login_flag == false) {
+		loginstatus = " is not logged in"; // driver
+	}
     return driver_Name.append(loginstatus);
 }
 
