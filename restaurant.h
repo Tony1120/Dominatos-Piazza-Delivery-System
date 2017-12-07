@@ -1,4 +1,12 @@
-
+//--------------------------------------------------------------------
+//   Jemal, Nick, Tony
+//   PizzaHub
+//
+//  Final Project                                           time.h
+//
+//  Declaration for the time class
+//
+//--------------------------------------------------------------------
 
 #ifndef RESTAURANT_H
 #define RESTAURANT_H
@@ -10,19 +18,17 @@
 #include <deque>
 #include "driver.h"
 
-
-
-
 using namespace std;
 
       // The Restaurant class keeps track of all drivers and orders in the
       // system, including logged-out drivers and completed orders.
+
 class Restaurant {
 public:
   /*
 	* Preconditions: None
 	* Postcondition: Constructor. Creates a restaurant in an initial state, with
-  *                no drivers or orders.
+    *                no drivers or orders.
 	*/
   Restaurant();
 
@@ -81,10 +87,10 @@ public:
   void deliver(Driver & driver, Time time, float tip);
 
 private:
-  list <Driver> drivers;
-  deque <Order> toCook;
-  deque <Order> served;
-  list <Order> delivered;
+  list <Driver> drivers;    //List of drivers
+  deque <Order> toCook;     //deque of food waiting to be cooked
+  deque <Order> served;     //deque of orders served
+  list <Order> delivered;   //list of delivered pizza
 
 };
 
