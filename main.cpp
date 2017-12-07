@@ -52,7 +52,11 @@ int main() {
         if ( cmd == "login"  ){
             cin >> driver_name;
 			//Driver is added
-            PizzaHub.addDriver(driver_name);
+            try{
+                PizzaHub.addDriver(driver_name);
+            }catch(logic_error &e){
+                cout << e.what() << endl;
+            }
 			// Driver is logged in
             PizzaHub.getDriver(driver_name)->login();
         }
@@ -112,8 +116,12 @@ int main() {
             cin.ignore(1); //ignore the separator
             cin >> min;
             cin >> driver_name;
-            Order to_depart = PizzaHub.departNextOrder();
-            PizzaHub.getDriver(driver_name)->depart(Time(hour, min), to_depart);
+            try{
+                Order to_depart = PizzaHub.departNextOrder();
+                PizzaHub.getDriver(driver_name)->depart(Time(hour, min), to_depart);
+            }catch(logic_error &e){
+                cout << e.what() << endl;
+            }
         }
 
         //Driver arrive
@@ -175,7 +183,7 @@ int main() {
 // Help is displayed at first and if the user enters a wrong command, or when the user types help
 void print_help(){
     cout << endl << "Commands:" << endl;
-    cout << "  help                       : Help (displays this message)" << endl;
+    cout << "  help                    : Help (displays this message)" << endl;
     cout << "  login DRIVER            : Logs in the driver" << endl;
     cout << "  logout DRIVER           : Logs out the driver" << endl;
     cout << "  order TIME INFO         : Creates an order with the time ordered and they type of pizza ordered" << endl;
