@@ -17,6 +17,8 @@
 #include <string>
 
 using namespace std;
+
+	//The time class represents a time of day in 24-hour time with hours and minutes
 class Time{
 public:
 
