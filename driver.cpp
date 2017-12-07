@@ -188,10 +188,8 @@ Order * Driver::getOrder() throw(logic_error){
  *                order, the departure time and toString of the order being delivered.
  */
 string Driver::toString(){
-    string loginstatus;
-    
+    string loginstatus = " ";
     if(login_flag==true) { // driver is logged in
-        loginstatus = " ";
         if(at_restaurant)
             loginstatus=" is logged in ";
         if(arrive_flag==false) { // driver is out delivering order
