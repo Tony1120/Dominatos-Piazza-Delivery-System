@@ -10,15 +10,14 @@ Order::Order(){
 
 //Parameterized Constructor
 Order::Order(Time placed, string info){
-  //Order info
-  order_info = info;
-  //Order is new
-  bool is_out_for_delivery = false;
-    bool is_delivered= false;
-  bool is_at_the_restaurant = true;
-  time_placed = placed;
-//  Time time_delivered = NULL;
-//  //Can time be null?
+    //Order info
+    order_info = info;
+    
+    //Order is new
+    is_out_for_delivery = false;
+    is_delivered= false;
+    is_at_the_restaurant = true;
+    time_placed = placed;
 }
 
 //Depart
@@ -26,10 +25,8 @@ void Order::depart() throw (logic_error){
     if(!is_at_the_restaurant){
         throw logic_error("Order is not at the restaurant");
     }
-   
-  is_out_for_delivery = true;
+    is_out_for_delivery = true;
     is_at_the_restaurant = false;
-    
 }
 
 //Deliver
@@ -38,7 +35,7 @@ void Order::deliver(Time time)throw (logic_error){
         throw logic_error("Order is not out for delivery");
     }
     
-    time_delivered= time;
+    time_delivered = time;
     is_delivered = true;
 }
 
@@ -50,10 +47,8 @@ int Order::getMinToDelivery() throw (logic_error){
 }
 
 
-
 //Order status
 string Order::toString(){
-
     string status;
     status = time_placed.toString()+" "+ order_info;
   return status;

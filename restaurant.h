@@ -71,7 +71,7 @@ public:
   * Preconditions: Departure queue isnt empty
   * Postcondition: Removes the oldest order from the departure queue and returns it.
   */
-  Order * departNextOrder() throw (logic_error);
+  Order departNextOrder() throw (logic_error);
 
   /*
   * Preconditions: None

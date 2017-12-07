@@ -18,7 +18,7 @@ public:
     //Post: Creates an order with the given order time and information.
     Order(Time time, string info);
 
-    //Pre: Nothing
+    //Pre: Pass time served
     //Post: is_served = true.
     void serve();
 
@@ -38,11 +38,11 @@ public:
     string toString();
 
 private:
-    bool is_out_for_delivery;
     string order_info;
+    bool is_out_for_delivery;
     bool is_at_the_restaurant;
-    bool is_delivered;//has it been finished cooking?
-    //bool has_left_restaurant; redundant because of is_out_for_delivery
+    bool is_delivered;
+    //Time time_served;
     Time time_placed;
     Time time_delivered;
 

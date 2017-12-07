@@ -57,7 +57,7 @@ public:
      * Preconditions: Driver is delivering with a tip >= 0
      * Postcondition: Driver is not delivering. Driver’s stats are updated.
      */
-    void deliver(Time time, float tip) throw(logic_error);
+    Order deliver(Time time, float tip) throw(logic_error);
     
     /*
      * Preconditions: Driver is driving but not delivering.
@@ -119,6 +119,9 @@ public:
     
 private:
     // flags indicating the status of the driver
+    bool at_restaurant;
+    
+    //I'm confused about when these all change - Nick
     bool depart_flag;
     bool deliver_flag;
     bool arrive_flag;

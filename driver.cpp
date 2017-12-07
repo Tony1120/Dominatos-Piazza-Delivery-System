@@ -30,8 +30,9 @@ void Driver:: login() throw(logic_error){
     if (login_flag==true) {
         throw logic_error("Driver has already logged in");
     }
-    login_flag =true;
+    login_flag = true;
     arrive_flag= true;
+    at_restaurant = true;
 }
 
 /*
@@ -51,14 +52,15 @@ void Driver:: logout() throw(logic_error){
  * Preconditions: Driver is logged in and at the restaurant.
  * Postcondition: Driver is delivering. Departure time is recorded.
  */
-void Driver :: depart(Time time, Order o) throw(logic_error){
+void Driver::depart(Time time, Order o) throw(logic_error){
     if (login_flag==false||arrive_flag==false) {
         throw logic_error("the driver is not logged in or not at the restaurant");
     }
     currentOrder = o; // past parameter o to currentOrder
-    depart_flag= true;
-    
+    depart_flag = true;
+    arrive_flag = false;
     depart_time = time;
+    at_restaurant = false;
     
     currentOrder.depart(); // change the status of the order to depart
     
@@ -68,12 +70,9 @@ void Driver :: depart(Time time, Order o) throw(logic_error){
  * Preconditions: Driver is delivering with a tip >= 0
  * Postcondition: Driver is not delivering. Driver’s stats are updated.
  */
-void Driver::deliver(Time time, float tip) throw(logic_error){
+Order Driver::deliver(Time time, float tip) throw(logic_error){
     
-    if (deliver_flag==false&&arrive_flag==false&& tip>=0) {
-        Order *temp = &currentOrder;
-        delete temp; // not sure if it works
-        
+    if (deliver_flag==false && arrive_flag==false && tip>=0) {
         currentOrder.deliver(time);// change the status of the order to deliver
         
         deliver_flag=true;
@@ -83,8 +82,10 @@ void Driver::deliver(Time time, float tip) throw(logic_error){
         tot_mins_spent_delivering= Time::elapsedMin(depart_time, deliver_time);
         
         total_deliveries = total_deliveries+1;
+        return currentOrder;
     }
-    else throw logic_error("driver is not delivering or the tip is less than 0");
+    else
+        throw logic_error("driver is not delivering or the tip is less than 0");
 
 }
 
@@ -94,21 +95,17 @@ void Driver::deliver(Time time, float tip) throw(logic_error){
  */
 void Driver::arrive(Time time) throw(logic_error){
     if (arrive_flag==false&&deliver_flag==true) {
-        
+        at_restaurant = true;
         arrive_flag= true;
         deliver_flag=false;
         depart_flag = false;
-        
         
         arrive_time=time;
         
         tot_mins_spent_driving=  Time::elapsedMin(depart_time, arrive_time);
     }
     else throw logic_error("driver is at the restaurant or is delivering");
-    
-    
 }
-
 
 /*
  * Preconditions: None
@@ -123,7 +120,7 @@ string Driver::getName(){
  * Postcondition: returns true if driver is logged in. Returns false otherwise
  */
 bool Driver::isLoggedIn(){
-    if (login_flag=true) {
+    if (login_flag==true) {
         return true;
     }
     return false;
@@ -185,17 +182,22 @@ Order * Driver::getOrder() throw(logic_error){
 string Driver::toString(){
     string loginstatus;
     
-    if (login_flag==true) { // driver is logged in
-        loginstatus=" is logged in ";
-        if (arrive_flag==false) { // driver is out delivering order
-            return driver_Name+loginstatus+depart_time.toString()+currentOrder.toString(); \
+    if(login_flag==true) { // driver is logged in
+        loginstatus = " ";
+        if(at_restaurant)
+            loginstatus=" is logged in ";
+        if(arrive_flag==false) { // driver is out delivering order
+            if(!deliver_flag)
+                return driver_Name+loginstatus+currentOrder.toString();
+            else
+                return driver_Name + " is returning from a delivery";
         }
         else { // driver is at the restaurant
-            return driver_Name+loginstatus.append("the driver is current at the restaurant");
+            return driver_Name+loginstatus.append("and currently at the restaurant");
         }
     }
 
-    loginstatus=" not logged in"; // driver
+    loginstatus=" is not logged in"; // driver
     return driver_Name.append(loginstatus);
 }
 

@@ -94,9 +94,7 @@ Driver * Restaurant::getDriver(string name){
 
     
 void Restaurant:: addDriver(string name){
-//    drivers.push_back(driver);
     drivers.push_back(Driver(name));
-
 }
     
 
@@ -107,29 +105,26 @@ void Restaurant::addOrder( Order & order){
 
 void Restaurant::serveNextOrder() throw (logic_error){
   if(toCook.empty()){
-    throw logic_error("There are no pizza's being cooked ");
+    throw logic_error("There are no pizzas being cooked ");
   }
-    
     
     Order serve_order= toCook.front();
     toCook.pop_front();
     served.push_back(serve_order);
 }
 
-Order * Restaurant::departNextOrder() throw (logic_error){
+Order Restaurant::departNextOrder() throw (logic_error){
     if (served.empty()) {
-        throw logic_error("There are no pizza ready to be delivered ");
+        throw logic_error("There are no pizzas ready to be delivered ");
     }
     
     Order order_depart = served.front();
     served.pop_front();
     
-    Order *order_depart_ptr=&order_depart;
-    
-  return order_depart_ptr;
+    return order_depart;
+  //return order_depart_ptr;
 }
 
 void Restaurant::deliver(Driver & driver, Time time, float tip){
-  driver.deliver(time, tip);
-    delivered.push_back(*driver.getOrder());
+    delivered.push_back(driver.deliver(time, tip));
 }
