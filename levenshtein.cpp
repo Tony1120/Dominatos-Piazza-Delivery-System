@@ -7,7 +7,8 @@
 //****************************************************************//
 // This is an autocorrect and distance algorith that is taken from 
 // https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
-// 
+// This algorithm tries to guess the correct command if the user inputs an incorrect command. 
+// This is done by measuring the similarity between two strings (the user input command and the appropraite commands)
 
 #include "levenshtein.h"
 
