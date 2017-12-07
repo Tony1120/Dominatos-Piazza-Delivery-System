@@ -4,10 +4,14 @@
 //
 //
 
+//****************************************************************//
+// This is an autocorrect and distance algorith that is taken from 
+// https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
+// 
+
 #include "levenshtein.h"
 
-//Distance algorithm
-//https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
+//Start code from https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance
 unsigned int levenshtein_distance(const std::string& s1, const std::string& s2)
 {
     const size_t len1 = s1.size(), len2 = s2.size();
@@ -67,3 +71,4 @@ bool isValidCommand(string word){
     }
     return false;
 }
+// end code 
