@@ -88,7 +88,7 @@ Order Driver::deliver(Time time, float tip) throw(logic_error){
         deliver_time = time;
         
         tot_mins_spent_delivering= Time::elapsedMin(depart_time, deliver_time);
-        
+        tot_mins_spent_driving = tot_mins_spent_delivering;
         total_deliveries = total_deliveries+1;
         return currentOrder;
     }
@@ -209,6 +209,19 @@ string Driver::toString(){
 }
 
 
+//login tony
+//login jemal
+//order 10:00 coffee to lowry
+//order 11:00 pizza to kenarden
+//serve 10:15
+//serve 10:16
+//depart 10:30 tony
+//depart 10:31 jemal
+//deliver 11:00 tony 5
+//deliver 11:01 jemal 6
+//arrive 11:30 tony
+//status
+//summary
 
 
 
