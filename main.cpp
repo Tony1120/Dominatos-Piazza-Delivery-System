@@ -149,7 +149,8 @@ int main() {
             cin >> driver_name;
             cin >> tip;
             try{
-                PizzaHub.getDriver(driver_name)->deliver(Time(hour, min), tip);
+                Order temp = PizzaHub.getDriver(driver_name)->deliver(Time(hour, min), tip);
+                PizzaHub.deliver(temp);
             }catch(logic_error& e){
                 cout << e.what() << endl;
             }

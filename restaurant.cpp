@@ -57,8 +57,6 @@ void Restaurant::summary(){
 	//for number of orders completed
   cout << "Number of orders completed: ";
   //Number delivered
-  int completed = 0;
-  int totalTime = 0;
   for(auto &orderItr : delivered){
     completed++; 
     totalTime += orderItr.getMinToDelivery();
@@ -168,6 +166,6 @@ Order Restaurant::departNextOrder() throw (logic_error){
 * Postcondition: The order carried by the driver is delivered at the given
 *                time. The driver receives the given tip.
 */
-void Restaurant::deliver(Driver & driver, Time time, float tip){
-    delivered.push_back(driver.deliver(time, tip));
+void Restaurant::deliver(Order delivered_order){
+    delivered.push_back(delivered_order);
 }

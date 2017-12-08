@@ -32,7 +32,7 @@ unsigned int levenshtein_distance(const std::string& s1, const std::string& s2)
 }
 
 //Commands we are using
-string commands[] = {"login", "order", "serve", "depart", "arrive", "logout", "status", "summary", "quit", "help", "deliver"};
+string commands[] = {"login", "order", "serve", "depart", "arrive", "logout", "status", "summary", "help", "deliver"};
 
 //Returns empty string for word that isn't close
 string guessCommand(string word){
@@ -56,7 +56,7 @@ string guessCommand(string word){
         cout << "Did you mean " << closest << "?" << endl;
         return "";
     }
-    else if(closestNum <= 2)
+    else if(closestNum <= 1)
         return closest;
     else{
         cout << "Did you mean " << closest << "?" << endl;

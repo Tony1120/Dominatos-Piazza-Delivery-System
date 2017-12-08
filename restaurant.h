@@ -84,13 +84,16 @@ public:
   * Postcondition: The order carried by the driver is delivered at the given
   *                time. The driver receives the given tip.
   */
-  void deliver(Driver & driver, Time time, float tip);
+  //void deliver(Driver * driver, Time time, float tip, Order delivered);
+  void deliver(Order delivered_order);
 
 private:
   list <Driver> drivers;    //List of drivers
   deque <Order> toCook;     //deque of food waiting to be cooked
   deque <Order> served;     //deque of orders served
   list <Order> delivered;   //list of delivered pizza
+  int completed = 0; //Number of orders delivered
+  int totalTime = 0; //Total minutes to delivery
 
 };
 
